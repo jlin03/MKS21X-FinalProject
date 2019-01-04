@@ -31,7 +31,7 @@ public class Board {
   }
 
   private boolean isGameOver() {
-    boolean over;
+    boolean over = true;
     for(int r = 0;r < state.length;r++) {
       for(int c = 0;c < state[r].length;c++) {
         if(state[r][c] == 0) {
@@ -39,14 +39,15 @@ public class Board {
         }
       }
     }
+    return over;
   }
 
-  private int rowEq() {
+  public int rowEq() {
     boolean equal = true;
     for(int r = 0;r < state.length;r++) {
       equal = true;
       for(int c = 0;c < state[r].length;c++) {
-        if(state[r][0] != state[r][c] || state[r][c] = 0) {
+        if(state[r][0] != state[r][c] || state[r][c] == 0) {
           equal = false;
         }
       }
@@ -57,12 +58,12 @@ public class Board {
     return -1;
   }
 
-  private int colEq() {
+  public int colEq() {
     boolean equal = true;
-    for(int c = 0;c < state[0].length;r++) {
+    for(int c = 0;c < state[0].length;c++) {
       equal = true;
-      for(int r = 0;r < state.length;c++) {
-        if(state[0][c] != state[r][c] || state[r][c] = 0) {
+      for(int r = 0;r < state.length;r++) {
+        if(state[0][c] != state[r][c] || state[r][c] == 0) {
           equal = false;
         }
       }
@@ -73,28 +74,28 @@ public class Board {
     return -1;
   }
 
-  private int diagEq() {
+  public int diagEq() {
     boolean equal = true;
-    for(int r = 0;c < state.length;r++) {
+    for(int r = 0;r < state.length;r++) {
       equal = true;
       for(int c = 0;c < state.length;c++) {
-        if(state[0][0] != state[r][c] || state[r][c] = 0) {
+        if(state[0][0] != state[r][c] || state[r][c] == 0) {
           equal = false;
         }
       }
       if(equal) {
-        return c;
+        return r;
       }
     }
-    for(int r = 0;c < state.length;r++) {
+    for(int r = 0;r < state.length;r++) {
       equal = true;
       for(int c = 3;c < state.length;c--) {
-        if(state[0][3] != state[r][c] || state[r][c] = 0) {
+        if(state[0][3] != state[r][c] || state[r][c] == 0) {
           equal = false;
         }
       }
       if(equal) {
-        return c;
+        return r;
       }
     }
     return -1;
