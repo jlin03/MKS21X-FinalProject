@@ -1,7 +1,8 @@
 public class Board {
   private int[][] state;
 
-  public Board() {
+  public Board(int row, int col) {
+    state = new int[row][col];
     clear();
   }
 
@@ -12,7 +13,26 @@ public class Board {
       }
     }
   }
-  
+
+  public boolean move(int player, int posr, int posc) {
+    if((player == 1 || player == 2) && posr >= 0 && posr < 3  && posc >= 0 && posc < 3) {
+      if(state[posr][posc] = 0) {
+        state[posr][posc] = player;
+        return true;
+      }
+      else {
+        
+        return true;
+      }
+    }
+    else {
+      return false;
+    }
+
+
+
+  }
+
 
 
 
