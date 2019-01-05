@@ -5,7 +5,11 @@ public class Board {
     state = new int[d][d];
     clear();
   }
-
+  
+  public Board(int d, int[][] load) {
+    state = load;
+  }
+  
   private void clear() {
     for(int r = 0;r < state.length;r++) {
       for(int c = 0;c < state[r].length;c++) {
@@ -77,26 +81,21 @@ public class Board {
   public int diagEq() {
     boolean equal = true;
     for(int r = 0;r < state.length;r++) {
-      equal = true;
-      for(int c = 0;c < state.length;c++) {
-        if(state[0][0] != state[r][c] || state[r][c] == 0) {
-          equal = false;
-        }
-      }
-      if(equal) {
-        return r;
+      if(state[0][0] != state[r][r] || state[r][r] == 0) {
+        equal = false;
       }
     }
+	if(equal) {
+        return 1;
+	}
+	equal = true;
     for(int r = 0;r < state.length;r++) {
-      equal = true;
-      for(int c = 3;c < state.length;c--) {
-        if(state[0][3] != state[r][c] || state[r][c] == 0) {
-          equal = false;
-        }
+      if(state[0][2] != state[r][2-r] || state[r][2-r] == 0) {
+        equal = false;
       }
-      if(equal) {
-        return r;
-      }
+    }
+	if(equal) {
+        return 2;
     }
     return -1;
   }
