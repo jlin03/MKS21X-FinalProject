@@ -83,7 +83,7 @@ public class Board {
       }
     }
 	if(equal) {
-        return 1;
+        return 0;
 	}
 	equal = true;
     for(int r = 0;r < state.length;r++) {
@@ -95,6 +95,34 @@ public class Board {
         return 2;
     }
     return -1;
+  }
+  
+  public int winner() {
+	  if(rowEq() != -1) {
+		  return state[rowEq()][0];
+	  }
+	  if(colEq() != -1) {
+		  return state[0][colEq()];
+	  }
+	  if(diagEq() != -1) {
+		  return state[0][diagEq()];
+	  }
+	  return -1;
+  }
+  
+  public int getReward(int player) {
+	  if(winner() == -1) {
+		  return 0;
+	  }
+	  else {
+		  if(winner() == player) {
+			  return 1;
+		  }
+		  if(winner() != player) {
+			  return -1;
+		  }
+	  }
+	  return 0;
   }
   
   private String convert(int input) {
