@@ -43,7 +43,7 @@ public class Board {
     return over;
   }
 
-  public int rowEq() {
+  private int rowEq() {
     boolean equal = true;
     for(int r = 0;r < state.length;r++) {
       equal = true;
@@ -59,7 +59,7 @@ public class Board {
     return -1;
   }
 
-  public int colEq() {
+  private int colEq() {
     boolean equal = true;
     for(int c = 0;c < state[0].length;c++) {
       equal = true;
@@ -75,7 +75,7 @@ public class Board {
     return -1;
   }
 
-  public int diagEq() {
+  private int diagEq() {
     boolean equal = true;
     for(int r = 0;r < state.length;r++) {
       if(state[0][0] != state[r][r] || state[r][r] == 0) {
@@ -123,6 +123,18 @@ public class Board {
 		  }
 	  }
 	  return 0;
+  }
+  
+  public String gameMessage() {
+	  if(isGameOver()) {
+		  if(winner() == -1) {
+			  return "The game has been completed. The result is a draw.";
+		  }
+		  else {
+			  return "The game has been completed. The winner is player  " + winner();
+		  }
+	  }
+	  return "The game is in progress...";
   }
   
   private String convert(int input) {
