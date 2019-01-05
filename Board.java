@@ -34,7 +34,7 @@ public class Board {
     }
   }
 
-  private boolean isGameOver() {
+  public boolean isGameOver() {
     boolean over = true;
     for(int r = 0;r < state.length;r++) {
       for(int c = 0;c < state[r].length;c++) {
@@ -43,6 +43,9 @@ public class Board {
         }
       }
     }
+	if(rowEq() != -1 || colEq() != -1 || diagEq() != -1) {
+		over = true;
+	}
     return over;
   }
 
