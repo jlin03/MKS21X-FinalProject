@@ -96,6 +96,38 @@ public class Board {
     }
     return -1;
   }
+  
+  private String convert(int input) {
+	if(input == 1) {
+	  return "X";
+	}
+	if(input == 2) {
+	  return "O";
+	}
+	if(input == 0) {
+	  return " ";
+	}
+	return null;
+  }
+  
+  
+  public String toString() {
+	String out = "";
+	for(int r = 0;r < state.length-1;r++) {
+		for(int c = 0; c < state[r].length - 1;c++) {
+		  out += convert(state[r][c]);
+		  out += "|";
+		}
+		out += convert(state[r][state[r].length-1]); 
+		out += "\n- - -\n";
+	}
+	for(int c = 0; c < state[state.length-1].length - 1;c++) {
+		out += convert(state[state.length-1][c]);
+		out += "|";
+	}
+	out += convert(state[state.length-1][state[state.length-1].length-1]);
+	return out;  
+  }
 
 
 
