@@ -24,14 +24,8 @@ public class Board {
         state[posr][posc] = player;
         return true;
       }
-      else {
-
-        return true;
-      }
     }
-    else {
-      return false;
-    }
+	return false;
   }
 
   public boolean isGameOver() {
