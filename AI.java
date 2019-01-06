@@ -54,9 +54,18 @@ public class AI {
 	}
 	
 	public int[][] stringToIntArray(String array) {
-		String[] split1 = array.split()
-		String[][] split2 = new String[][]
-		
+		String[] split1 = array.split(";");
+		String[][] split2 = new String[split1.length][split1.length];
+		int[][] output = new int[split1.length][split1.length];
+		for(int i = 0; i < split1.length;i++) {
+			split2[i] = split1[i].replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\\s", "").split(",");
+		}
+		for(int r = 0; r < split2.length;r++) {
+			for(int c = 0; c < split2[r].length;c++) {
+				output[r][c] = Integer.parseInt(split2[r][c]);
+			}
+		}
+		return output;
 	}
 	
 	public void importF(String fileS, String fileW) throws Exception {
@@ -74,6 +83,8 @@ public class AI {
 	}
 	
 	public void export(String fileS, String fileW) throws Exception {
+		File state = new File(fileS);
+		File weight = new File(fileW);
 		state.createNewFile();
 		weight.createNewFile();
 		FileWriter copyS = new FileWriter(fileS, false);
