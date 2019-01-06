@@ -9,17 +9,12 @@ import java.io.FileNotFoundException;
 public class AI {
 	private ArrayList<int[][]> states;
 	private ArrayList<int[][]> weights;
-	int[][] test = {{1,2,1},{1,2,1},{2,1,2}};
-	int[][] test2 = {{1,2,1},{1,2,1},{2,1,1}};
+	private int[][] empty;
 	
-	public AI() {
+	public AI(int d) {
 		states = new ArrayList<int[][]>();
 		weights = new ArrayList<int[][]>();
-		for(int i = 0; i < 100; i++) {
-			states.add(test);
-			weights.add(test);
-		}
-		states.add(test2);
+		empty = new int[d][d];
 	}
 	
 	public void addState(int[][] state) {
@@ -28,6 +23,17 @@ public class AI {
 	
 	public void addWeight(int[][] weight) {
 		weights.add(weight);
+	}
+	
+	public void changeWeight(int[][] state, int[] weight, int val) {
+		if(indexOfState(state) != -1) {
+			weights.get(indexOfState(state))[weight[0]][weight[1]] = val;
+		}
+		else {
+			addState(state);
+			addWeight(empty);
+			changeWeight(state,weight,val);
+		}
 	}
 	
 	public int indexOfState(int[][] state) {
