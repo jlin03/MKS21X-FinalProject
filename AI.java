@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter; 
-import java.io.FileReader; 
+import java.util.Scanner;
 import java.io.IOException;
 import java.io.FileNotFoundException; 
 
@@ -53,16 +53,34 @@ public class AI {
 		return weights.get(indexOfState(state));
 	}
 	
-	public void export(String fileS, String fileW) throws Exception{
-		File state = new File(fileS);
-		File weight = new File(fileW);
+	public int[][] stringToIntArray(String array) {
+		String[] split1 = array.split()
+		String[][] split2 = new String[][]
+		
+	}
+	
+	public void importF(String fileS, String fileW) throws Exception {
+		Scanner impS = new Scanner(fileS);
+		String temp = "";
+		while(impS.hasNext()) {
+			temp = impS.nextLine();
+		}
+		
+		Scanner impW = new Scanner(fileW);
+	
+	
+	
+	
+	}
+	
+	public void export(String fileS, String fileW) throws Exception {
 		state.createNewFile();
 		weight.createNewFile();
 		FileWriter copyS = new FileWriter(fileS, false);
 		String temp = "";
 		for(int i = 0; i < states.size();i++) {
 			for(int s = 0; s < states.get(i).length - 1;s++) {
-				temp += Arrays.toString(states.get(i)[s]) + ",";
+				temp += Arrays.toString(states.get(i)[s]) + ";";
 			}
 			temp += Arrays.toString(states.get(i)[states.get(i).length-1]);
 			if(i != states.size() - 1) {
@@ -75,7 +93,7 @@ public class AI {
 		FileWriter copyW = new FileWriter(fileW, false);
 		for(int i = 0; i < weights.size();i++) {
 			for(int s = 0; s < weights.get(i).length - 1;s++) {
-				temp += Arrays.toString(weights.get(i)[s]) + ",";
+				temp += Arrays.toString(weights.get(i)[s]) + ";";
 			}
 			temp += Arrays.toString(weights.get(i)[weights.get(i).length-1]);
 			if(i != weights.size() - 1) {
