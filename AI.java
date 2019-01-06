@@ -17,6 +17,13 @@ public class AI {
 		empty = new int[d][d];
 	}
 	
+	public AI(int d, String fileS, String fileW) throws Exception {
+		states = new ArrayList<int[][]>();
+		weights = new ArrayList<int[][]>();
+		empty = new int[d][d];
+		importF(fileS,fileW);
+	}
+	
 	private void addState(int[][] state) {
 		states.add(state);
 	}
@@ -69,16 +76,18 @@ public class AI {
 	}
 	
 	public void importF(String fileS, String fileW) throws Exception {
-		Scanner impS = new Scanner(fileS);
+		File state = new File(fileS);
+		File weight = new File(fileW);
+		Scanner impS = new Scanner(state);
 		String temp = "";
 		while(impS.hasNext()) {
 			temp = impS.nextLine();
 			addState(stringToIntArray(temp));
 		}
-		Scanner impW = new Scanner(fileW);
+		Scanner impW = new Scanner(weight);
 		while(impW.hasNext()) {
 			temp = impW.nextLine();
-			addState(stringToIntArray(temp));
+			addWeight(stringToIntArray(temp));
 		}
 	}
 	
