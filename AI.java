@@ -10,6 +10,7 @@ public class AI {
 	private ArrayList<int[][]> states;
 	private ArrayList<int[][]> weights;
 	int[][] test = {{1,2,1},{1,2,1},{2,1,2}};
+	int[][] test2 = {{1,2,1},{1,2,1},{2,1,1}};
 	
 	public AI() {
 		states = new ArrayList<int[][]>();
@@ -18,6 +19,15 @@ public class AI {
 			states.add(test);
 			weights.add(test);
 		}
+		states.add(test2);
+	}
+	
+	public void addState(int[][] state) {
+		states.add(state);
+	}
+	
+	public void addWeight(int[][] weight) {
+		weights.add(weight);
 	}
 	
 	public int indexOfState(int[][] state) {
@@ -28,7 +38,6 @@ public class AI {
 		}
 		return -1;
 	}
-	
 	
 	public void export(String fileS, String fileW) throws Exception{
 		File state = new File(fileS);
