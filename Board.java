@@ -125,6 +125,10 @@ public class Board {
 	  return 0;
   }
   
+  public int[][] getState() {
+	  return state;
+  }
+  
   public String gameMessage() {
 	  if(isGameOver()) {
 		  if(winner() == -1) {
