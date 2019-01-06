@@ -25,6 +25,15 @@ public class AI {
 		weights.add(weight);
 	}
 	
+	public int indexOfState(int[][] state) {
+		for(int i = 0; i < states.size();i++) {
+			if(Arrays.deepEquals(state,states.get(i))) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 	public void changeWeight(int[][] state, int[] weight, int val) {
 		if(indexOfState(state) != -1) {
 			weights.get(indexOfState(state))[weight[0]][weight[1]] = val;
@@ -34,15 +43,6 @@ public class AI {
 			addWeight(empty);
 			changeWeight(state,weight,val);
 		}
-	}
-	
-	public int indexOfState(int[][] state) {
-		for(int i = 0; i < states.size();i++) {
-			if(Arrays.deepEquals(state,states.get(i))) {
-				return i;
-			}
-		}
-		return -1;
 	}
 	
 	public int[][] getWeights(int[][] state) {
