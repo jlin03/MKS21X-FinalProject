@@ -17,11 +17,11 @@ public class AI {
 		empty = new int[d][d];
 	}
 	
-	public void addState(int[][] state) {
+	private void addState(int[][] state) {
 		states.add(state);
 	}
 	
-	public void addWeight(int[][] weight) {
+	private void addWeight(int[][] weight) {
 		weights.add(weight);
 	}
 	
@@ -43,6 +43,14 @@ public class AI {
 			}
 		}
 		return -1;
+	}
+	
+	public int[][] getWeights(int[][] state) {
+		if(indexOfState(state) == -1) {
+			addState(state);
+			addWeight(empty);
+		}
+		return weights.get(indexOfState(state));
 	}
 	
 	public void export(String fileS, String fileW) throws Exception{
