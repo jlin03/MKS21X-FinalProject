@@ -92,7 +92,7 @@ public class Board {
       }
     }
 	if(equal) {
-        return 2;
+        return (state.length - 1);
     }
     return -1;
   }
