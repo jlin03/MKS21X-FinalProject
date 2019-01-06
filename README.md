@@ -20,6 +20,10 @@ Development:
   New constructor added to be able to load a board from a specified state
   Game messages made to keep track of the match
   Board class completely coded, may be edited in the future
-
-  
-  
+1-6-19:
+  AI class completely coded(for now):
+    Constructor for AI with no training weights
+    Constructor for AI to import training weights from file
+    Ability to import and export AI data through txt files
+    Ability to get/change weights in relation to the index of a state(to be used in decision tree training later on)
+    
