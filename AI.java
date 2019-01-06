@@ -73,13 +73,13 @@ public class AI {
 		String temp = "";
 		while(impS.hasNext()) {
 			temp = impS.nextLine();
+			addState(stringToIntArray(temp));
 		}
-		
 		Scanner impW = new Scanner(fileW);
-	
-	
-	
-	
+		while(impW.hasNext()) {
+			temp = impW.nextLine();
+			addState(stringToIntArray(temp));
+		}
 	}
 	
 	public void export(String fileS, String fileW) throws Exception {
