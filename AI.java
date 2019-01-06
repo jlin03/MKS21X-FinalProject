@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 public class AI {
 	private ArrayList<int[][]> states;
 	private ArrayList<int[][]> weights;
-	int[][] test = {{1,2,3},{2,3,4},{4,5,6}};
+	int[][] test = {{1,2,1},{1,2,1},{2,1,2}};
 	
 	public AI() {
 		states = new ArrayList<int[][]>();
@@ -19,6 +19,16 @@ public class AI {
 			weights.add(test);
 		}
 	}
+	
+	public int indexOfState(int[][] state) {
+		for(int i = 0; i < states.size();i++) {
+			if(Arrays.deepEquals(state,states.get(i))) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 	
 	public void export(String fileS, String fileW) throws Exception{
 		File state = new File(fileS);
@@ -54,7 +64,6 @@ public class AI {
 		
 		copyS.close();
 		copyW.close();
-		
 	}
 	
 }
