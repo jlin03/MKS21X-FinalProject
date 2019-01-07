@@ -51,6 +51,10 @@ public class AI {
 			changeWeight(state,weight,val);
 		}
 	}
+	
+	public double getWeight(int[][] state, int[] weight) {
+		return weights.get(indexOfState(state))[weight[0]][weight[1]];
+	}
 
 	public double[][] getWeights(int[][] state) {
 		if(indexOfState(state) == -1) {
