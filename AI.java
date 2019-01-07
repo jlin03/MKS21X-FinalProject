@@ -61,21 +61,27 @@ public class AI {
 	}
 
 	public int[] getNthMax(int[][] array, int n) {
-    int[] max = {0,0};
+		int[] max = {0,0};
+		int[] tempMax = {0,0};
 		int maxVal = 1000000;
 		for(int x = 0; x < n;x++) {
-      for(int r = 0; r < array.length;r++) {
-        for(int c = 0; c < array[r].length;c++) {
-          if(array[r][c] > array[max[0]][max[1]] && array[r][c] < maxVal) {
-            max[0] = r;
-            max[1] = c;
-						maxVal = array[r][c];
-          }
-        }
-      }
+			for(int r = 0; r < array.length;r++) {
+				for(int c = 0; c < array[r].length;c++) {
+					if(array[r][c] > array[tempMax[0]][tempMax[1]] && array[r][c] < maxVal) {
+						tempMax[0] = r;
+						tempMax[1] = c;
+					}
+				}
+			}
+			maxVal = array[tempMax[0]][tempMax[1]];
+			if(x != n-1) {
+				tempMax[0] = 0;
+				tempMax[1] = 0;
+			}
 		}
+		max = tempMax;
 		return max;
-  }
+	}
 
 	public int[][] stringToIntArray(String array) {
 		String[] split1 = array.split(";");
