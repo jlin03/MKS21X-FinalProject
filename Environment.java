@@ -48,7 +48,30 @@ public class Environment {
 				
 		}
 		if(turn == 2) {
+			n = 1;
+			prevState = game.getState();
+			action = p2.getNthMaxWeight(prevState,n);
+			while(!(game.isMoveValid(2,action[0],action[1]))) {
+				n++;
+				action = p2.getNthMaxWeight(prevState,n);
+			}
+			game.move(2,action[0],action[1]);
 			
+			if(inspect) {
+				System.out.println(game);
+				System.out.println(Arrays.deepToString(p1.getWeights(prevState)));
+				System.out.println(game.gameMessage());
+			}
+			
+			n = 1;
+			currState = game.getState();
+			nextAction = p2.getNthMaxWeight(currState,n);
+			while(!(game.isMoveValid(2,action[0],action[1]))) {
+				n++;
+				action = p2.getNthMaxWeight(currState,n);
+			}
+			
+			p2.changeWeight(prevState,action,p1.getWeight(prevState,action) + (learnRate * (game.getReward(1) + p1.getWeight(currState,nextAction) - p1.getWeight(prevState,action))));
 		
 		}
 		

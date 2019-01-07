@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Random;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
@@ -10,6 +11,7 @@ public class AI {
 	private ArrayList<int[][]> states;
 	private ArrayList<double[][]> weights;
 	private double[][] empty;
+	Random rand =  new Random(51349);
 
 	public AI(int d) {
 		states = new ArrayList<int[][]>();
@@ -53,6 +55,10 @@ public class AI {
 	}
 	
 	public double getWeight(int[][] state, int[] weight) {
+		if(indexOfState(state) == -1) {
+			addState(state);
+			addWeight(empty);
+		}
 		return weights.get(indexOfState(state))[weight[0]][weight[1]];
 	}
 
@@ -65,6 +71,10 @@ public class AI {
 	}
 	
 	public int[] getNthMaxWeight(int[][] state, int n) {
+		if(indexOfState(state) == -1) {
+			addState(state);
+			addWeight(empty);
+		}
 		return getNthMax(weights.get(indexOfState(state)),n);
 	}
 
@@ -75,13 +85,14 @@ public class AI {
 		for(int x = 0; x < n;x++) {
 			for(int r = 0; r < array.length;r++) {
 				for(int c = 0; c < array[r].length;c++) {
-					if(array[r][c] > array[tempMax[0]][tempMax[1]] && array[r][c] < maxVal) {
+					if((array[r][c] > array[tempMax[0]][tempMax[1]] && array[r][c] < maxVal) || (array[r][c] == maxVal && (r != max[0] || c != max[1]))) {
 						tempMax[0] = r;
 						tempMax[1] = c;
 					}
 				}
 			}
 			maxVal = array[tempMax[0]][tempMax[1]];
+			max = Arrays.copyOf(tempMax,2);
 			if(x != n-1) {
 				tempMax[0] = 0;
 				tempMax[1] = 0;
@@ -89,6 +100,16 @@ public class AI {
 		}
 		max = tempMax;
 		return max;
+	}
+	
+	public double[][] scrambledWeights() {
+		double[][] output = new double[empty.length][empty.length];
+		for(int r = 0; r < output.length;r++) {
+			for(int c = 0; c < output[r].length;c++) {
+				output[r][c] = rand.nextDouble();
+			}
+		}
+		return output;
 	}
 
 	public double[][] stringToDoubleArray(String array) {
