@@ -19,13 +19,20 @@ public class Board {
   }
 
   public boolean move(int player, int posr, int posc) {
-    if((player == 1 || player == 2) && posr >= 0 && posr < 3  && posc >= 0 && posc < 3) {
-      if(state[posr][posc] == 0) {
-        state[posr][posc] = player;
-        return true;
-      }
+    if(isMoveValid(player,posr,posc)) {
+      state[posr][posc] = player;
+      return true;
     }
 	return false;
+  }
+  
+  public boolean isMoveValid(int player, int posr, int posc) {
+	  if((player == 1 || player == 2) && posr >= 0 && posr < 3  && posc >= 0 && posc < 3) {
+		if(state[posr][posc] == 0) {
+		  return true;
+		}
+	  }
+	  return false;
   }
 
   public boolean isGameOver() {
