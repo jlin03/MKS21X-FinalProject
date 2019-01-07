@@ -5,12 +5,12 @@ public class Board {
     state = new int[d][d];
     clear();
   }
-  
+
   public Board(int d, int[][] load) {
     state = load;
   }
-  
-  private void clear() {
+
+  public void clear() {
     for(int r = 0;r < state.length;r++) {
       for(int c = 0;c < state[r].length;c++) {
         state[r][c] = 0;
@@ -96,7 +96,7 @@ public class Board {
     }
     return -1;
   }
-  
+
   public int winner() {
 	  if(rowEq() != -1) {
 		  return state[rowEq()][0];
@@ -109,7 +109,7 @@ public class Board {
 	  }
 	  return -1;
   }
-  
+
   public int getReward(int player) {
 	  if(winner() == -1) {
 		  return 0;
@@ -124,11 +124,11 @@ public class Board {
 	  }
 	  return 0;
   }
-  
+
   public int[][] getState() {
 	  return state;
   }
-  
+
   public String gameMessage() {
 	  if(isGameOver()) {
 		  if(winner() == -1) {
@@ -140,7 +140,7 @@ public class Board {
 	  }
 	  return "The game is in progress...";
   }
-  
+
   private String convert(int input) {
 	if(input == 1) {
 	  return "X";
@@ -153,8 +153,8 @@ public class Board {
 	}
 	return null;
   }
-  
-  
+
+
   public String toString() {
 	String out = "";
 	for(int r = 0;r < state.length-1;r++) {
@@ -162,7 +162,7 @@ public class Board {
 		  out += convert(state[r][c]);
 		  out += "|";
 		}
-		out += convert(state[r][state[r].length-1]); 
+		out += convert(state[r][state[r].length-1]);
 		out += "\n- - -\n";
 	}
 	for(int c = 0; c < state[state.length-1].length - 1;c++) {
@@ -170,7 +170,7 @@ public class Board {
 		out += "|";
 	}
 	out += convert(state[state.length-1][state[state.length-1].length-1]);
-	return out;  
+	return out;
   }
 
 
