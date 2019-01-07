@@ -60,7 +60,7 @@ public class AI {
 		return weights.get(indexOfState(state));
 	}
 
-	public int getNthMax(int[][] array, int n) {
+	public int[] getNthMax(int[][] array, int n) {
     int[] max = {0,0};
 		int maxVal = 1000000;
 		for(int x = 0; x < n;x++) {
@@ -74,6 +74,7 @@ public class AI {
         }
       }
 		}
+		return max;
   }
 
 	public int[][] stringToIntArray(String array) {
