@@ -8,19 +8,19 @@ import java.io.FileNotFoundException;
 
 public class AI {
 	private ArrayList<int[][]> states;
-	private ArrayList<int[][]> weights;
-	private int[][] empty;
+	private ArrayList<double[][]> weights;
+	private double[][] empty;
 
 	public AI(int d) {
 		states = new ArrayList<int[][]>();
-		weights = new ArrayList<int[][]>();
-		empty = new int[d][d];
+		weights = new ArrayList<double[][]>();
+		empty = new double[d][d];
 	}
 
 	public AI(int d, String fileS, String fileW) throws Exception {
 		states = new ArrayList<int[][]>();
-		weights = new ArrayList<int[][]>();
-		empty = new int[d][d];
+		weights = new ArrayList<double[][]>();
+		empty = new double[d][d];
 		importF(fileS,fileW);
 	}
 
@@ -28,7 +28,7 @@ public class AI {
 		states.add(state);
 	}
 
-	private void addWeight(int[][] weight) {
+	private void addWeight(double[][] weight) {
 		weights.add(weight);
 	}
 
@@ -41,7 +41,7 @@ public class AI {
 		return -1;
 	}
 
-	public void changeWeight(int[][] state, int[] weight, int val) {
+	public void changeWeight(int[][] state, int[] weight, double val) {
 		if(indexOfState(state) != -1) {
 			weights.get(indexOfState(state))[weight[0]][weight[1]] = val;
 		}
@@ -52,7 +52,7 @@ public class AI {
 		}
 	}
 
-	public int[][] getWeights(int[][] state) {
+	public double[][] getWeights(int[][] state) {
 		if(indexOfState(state) == -1) {
 			addState(state);
 			addWeight(empty);
@@ -64,10 +64,10 @@ public class AI {
 		return getNthMax(weights.get(indexOfState(state)),n);
 	}
 
-	public int[] getNthMax(int[][] array, int n) {
+	public int[] getNthMax(double[][] array, int n) {
 		int[] max = {0,0};
 		int[] tempMax = {0,0};
-		int maxVal = 1000000;
+		double maxVal = 1000000;
 		for(int x = 0; x < n;x++) {
 			for(int r = 0; r < array.length;r++) {
 				for(int c = 0; c < array[r].length;c++) {
@@ -87,6 +87,21 @@ public class AI {
 		return max;
 	}
 
+	public double[][] stringToDoubleArray(String array) {
+		String[] split1 = array.split(";");
+		String[][] split2 = new String[split1.length][split1.length];
+		double[][] output = new double[split1.length][split1.length];
+		for(int i = 0; i < split1.length;i++) {
+			split2[i] = split1[i].replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\\s", "").split(",");
+		}
+		for(int r = 0; r < split2.length;r++) {
+			for(int c = 0; c < split2[r].length;c++) {
+				output[r][c] = Double.parseDouble(split2[r][c]);
+			}
+		}
+		return output;
+	}
+	
 	public int[][] stringToIntArray(String array) {
 		String[] split1 = array.split(";");
 		String[][] split2 = new String[split1.length][split1.length];
@@ -116,7 +131,7 @@ public class AI {
 		Scanner impW = new Scanner(weight);
 		while(impW.hasNext()) {
 			temp = impW.nextLine();
-			addWeight(stringToIntArray(temp));
+			addWeight(stringToDoubleArray(temp));
 		}
 	}
 
