@@ -59,6 +59,10 @@ public class AI {
 		}
 		return weights.get(indexOfState(state));
 	}
+	
+	public int[] getNthMaxWeight(int[][] state, int n) {
+		return getNthMax(weights.get(indexOfState(state)),n);
+	}
 
 	public int[] getNthMax(int[][] array, int n) {
 		int[] max = {0,0};
