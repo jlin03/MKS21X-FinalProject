@@ -49,7 +49,7 @@ public class AI {
 		}
 		else {
 			addState(state);
-			addWeight(empty);
+			addWeight(scrambledWeights());
 			changeWeight(state,weight,val);
 		}
 	}
@@ -57,7 +57,7 @@ public class AI {
 	public double getWeight(int[][] state, int[] weight) {
 		if(indexOfState(state) == -1) {
 			addState(state);
-			addWeight(empty);
+			addWeight(scrambledWeights());
 		}
 		return weights.get(indexOfState(state))[weight[0]][weight[1]];
 	}
@@ -65,7 +65,7 @@ public class AI {
 	public double[][] getWeights(int[][] state) {
 		if(indexOfState(state) == -1) {
 			addState(state);
-			addWeight(empty);
+			addWeight(scrambledWeights());
 		}
 		return weights.get(indexOfState(state));
 	}
@@ -73,7 +73,7 @@ public class AI {
 	public int[] getNthMaxWeight(int[][] state, int n) {
 		if(indexOfState(state) == -1) {
 			addState(state);
-			addWeight(empty);
+			addWeight(scrambledWeights());
 		}
 		return getNthMax(weights.get(indexOfState(state)),n);
 	}
