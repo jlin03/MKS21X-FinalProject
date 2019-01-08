@@ -26,9 +26,13 @@ Development:
     Constructor for AI to import training weights from file
     Ability to import and export AI data through txt files
     Ability to get/change weights in relation to the index of a state(to be used in decision tree training later on)
- 1-7-19:
+1-7-19:
   Some methods made public for better access(Board,AI)
   New methods getNthMaxWeight*AI* and isMoveValid*Board* written along with several helper methods
   All methods for weights changed from int to double comparison and operation
   Learn method in Environment class completed
   Tested and saved training for bots, algorithm may be changed later
+1-8-19:
+  play method to start a player vs computer match written
+  learning algorithm changed so weights update every two moves, due to the two player nature of tic-tac-toe
+  
