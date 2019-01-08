@@ -79,25 +79,17 @@ public class AI {
 	}
 
 	public int[] getNthMax(double[][] array, int n) {
+		double[] sorted = sortArray(array);
+		double nth = sorted[sorted.length-n];
 		int[] max = {0,0};
-		int[] tempMax = {0,0};
-		double maxVal = 1000000;
-		for(int x = 0; x < n;x++) {
-			for(int r = 0; r < array.length;r++) {
-				for(int c = 0; c < array[r].length;c++) {
-					if(Double.compare(array[r][c], array[tempMax[0]][tempMax[1]]) > 0 && Double.compare(array[r][c], maxVal) < 0) {
-						tempMax[0] = r;
-						tempMax[1] = c;
-					}
+		for(int r = 0; r < array.length;r++) {
+			for(int c = 0; c < array[r].length;c++) {
+				if(Double.compare(nth,array[r][c]) == 0) {
+					max[0] = r;
+					max[1] = c;
 				}
 			}
-			maxVal = array[tempMax[0]][tempMax[1]];
-			if(x != n-1) {
-				tempMax[0] = 0;
-				tempMax[1] = 0;
-			}
 		}
-		max = tempMax;
 		return max;
 	}
 	
