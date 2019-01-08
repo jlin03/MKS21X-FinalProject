@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 public class Environment {
   public Board game;
   public AI p1;
@@ -7,7 +8,7 @@ public class Environment {
   double learnRate = 0.7;
   double discount = -0.2;
   Random rand = new Random(56143790);
-  
+
   public Environment(int d) {
 	game = new Board(d);
 	p1 = new AI(d);
@@ -36,7 +37,7 @@ public class Environment {
 		if(turn == 1) {
 			n = 1;
 			prevState1 = game.getState();
-			if(rand.nextInt() % 10 > 4) {
+			if(rand.nextInt() % 10 > 2) {
 				action1 = p1.getNthMaxWeight(prevState1,n);
 				while(!(game.isMoveValid(1,action1[0],action1[1]))) {
 					n++;
@@ -52,13 +53,13 @@ public class Environment {
 				}
 			}
 			game.move(1,action1[0],action1[1]);
-			
+
 			if(inspect) {
 				System.out.println(game);
 				System.out.println(Arrays.deepToString(p1.getWeights(prevState1)));
 				System.out.println(game.gameMessage());
 			}
-			
+
 			if(!(game.isGameOver())) {
 				n = 1;
 				currState1 = game.getState();
@@ -68,19 +69,19 @@ public class Environment {
 					nextAction1 = p1.getNthMaxWeight(currState1,n);
 				}
 			}
-			
+
 			p1.changeWeight(prevState1,action1,p1.getWeight(prevState1,action1) + (learnRate * (game.getReward(1) + (discount * p1.getWeight(currState1,nextAction1)) - p1.getWeight(prevState1,action1))));
-				
+
 			if(game.isGameOver()) {
 				p2.changeWeight(prevState2,action2,p2.getWeight(prevState2,action2) + (learnRate * (game.getReward(2) + (discount * p2.getWeight(currState2,nextAction2)) - p2.getWeight(prevState2,action2))));
 			}
-				
+
 			turn = 2;
 		}
 		else {
 			n = 1;
 			prevState2 = game.getState();
-			if(rand.nextInt() % 10 > 4) {
+			if(rand.nextInt() % 10 > 2) {
 				action2 = p2.getNthMaxWeight(prevState2,n);
 				while(!(game.isMoveValid(2,action2[0],action2[1]))) {
 					n++;
@@ -96,13 +97,13 @@ public class Environment {
 				}
 			}
 			game.move(2,action2[0],action2[1]);
-			
+
 			if(inspect) {
 				System.out.println(game);
 				System.out.println(Arrays.deepToString(p2.getWeights(prevState2)));
 				System.out.println(game.gameMessage());
 			}
-			
+
 			if(!(game.isGameOver())) {
 				n = 1;
 				currState2 = game.getState();
@@ -112,16 +113,57 @@ public class Environment {
 					nextAction2 = p2.getNthMaxWeight(currState2,n);
 				}
 			}
-			
+
 			p2.changeWeight(prevState2,action2,p2.getWeight(prevState2,action2) + (learnRate * (game.getReward(2) + (discount * p2.getWeight(currState2,nextAction2)) - p2.getWeight(prevState2,action2))));
-			
+
 			if(game.isGameOver()) {
 				p1.changeWeight(prevState1,action1,p1.getWeight(prevState1,action1) + (learnRate * (game.getReward(1) + (discount * p1.getWeight(currState1,nextAction1)) - p1.getWeight(prevState1,action1))));
 			}
-			
+
 			turn = 1;
 		}
 	}
+  }
+
+  public void play(int player) {
+    game.clear();
+    int turn = 1;
+    int bot = 0;
+    if(player == 1) {
+      bot = 2;
+    }
+    else {
+      bot = 1;
+    }
+    Scanner move = new Scanner(System.in);
+    while(!(game.isGameOver())) {
+      if(turn == player) {
+        System.out.print("Make your move:");
+        String pAction = Scanner.next();
+        String[] strAction = pAction.replaceAll("\\s", "").split(",");
+        int[] inpAction = new int[2];
+        for(int i  = 0; i < 2;i++) {
+          inpAction[i] = Integer.parseInt(strAction[i]);
+        }
+        while(!(game.isMoveValid(player,inpAction[0],inpAction[1]))) {
+          System.out.print("Make your move:");
+          pAction = Scanner.next();
+          strAction = pAction.replaceAll("\\s", "").split(",");
+          for(int i  = 0; i < 2;i++) {
+            inpAction[i] = Integer.parseInt(strAction[i]);
+          }
+        }
+        game.move(player,inpAction[0],inpAction[1]);
+        System.out.println(game);
+        System.out.println(game.gameMessage());
+        turn = bot;
+      }
+
+
+    }
+
+
+
   }
 
 
