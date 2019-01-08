@@ -101,6 +101,7 @@ public class AI {
 				if(Double.compare(nth,array[r][c]) == 0) {
 					max[0] = r;
 					max[1] = c;
+					return max;
 				}
 			}
 		}
@@ -125,7 +126,7 @@ public class AI {
 		double[][] output = new double[empty.length][empty.length];
 		for(int r = 0; r < output.length;r++) {
 			for(int c = 0; c < output[r].length;c++) {
-				output[r][c] = rand.nextDouble();
+				output[r][c] = rand.nextDouble() * 0.1;
 			}
 		}
 		return output;
