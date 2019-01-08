@@ -10,8 +10,8 @@ public class Environment {
   Random rand = new Random(56143790);
 
   public Environment(int d) {
-	game = new Board(d);
-	p1 = new AI(d);
+	  game = new Board(d);
+	  p1 = new AI(d);
     p2 = new AI(d);
   }
 
@@ -125,21 +125,26 @@ public class Environment {
 	}
   }
 
-  public void play(int player) {
+  public void play(int d,int player) {
     game.clear();
     int turn = 1;
     int bot = 0;
+    AI opponent;
+    int n = 1;
     if(player == 1) {
       bot = 2;
+      opponent = p2;
     }
     else {
       bot = 1;
+      opponent = p1;
     }
+
     Scanner move = new Scanner(System.in);
     while(!(game.isGameOver())) {
       if(turn == player) {
         System.out.print("Make your move:");
-        String pAction = Scanner.next();
+        String pAction = move.next();
         String[] strAction = pAction.replaceAll("\\s", "").split(",");
         int[] inpAction = new int[2];
         for(int i  = 0; i < 2;i++) {
@@ -147,23 +152,38 @@ public class Environment {
         }
         while(!(game.isMoveValid(player,inpAction[0],inpAction[1]))) {
           System.out.print("Make your move:");
-          pAction = Scanner.next();
+          pAction = move.next();
           strAction = pAction.replaceAll("\\s", "").split(",");
           for(int i  = 0; i < 2;i++) {
             inpAction[i] = Integer.parseInt(strAction[i]);
           }
         }
+
         game.move(player,inpAction[0],inpAction[1]);
         System.out.println(game);
         System.out.println(game.gameMessage());
+
         turn = bot;
+
+      }
+      else {
+        n = 1;
+        int[][] prevState = game.getState();
+        int[] botAction = opponent.getNthMaxWeight(prevState,n);
+        while(!(game.isMoveValid(bot,botAction[0],botAction[1]))) {
+          n++;
+          botAction = opponent.getNthMaxWeight(prevState,n);
+        }
+
+        game.move(bot,botAction[0],botAction[1]);
+        System.out.println(game);
+        System.out.println(Arrays.deepToString(opponent.getWeights(prevState)));
+
+        turn = player;
+
       }
 
-
     }
-
-
-
   }
 
 
