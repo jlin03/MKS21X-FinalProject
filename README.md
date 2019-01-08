@@ -31,3 +31,4 @@ Development:
   New methods getNthMaxWeight*AI* and isMoveValid*Board* written along with several helper methods
   All methods for weights changed from int to double comparison and operation
   Learn method in Environment class completed
+  Tested and saved training for bots, algorithm may be changed later
