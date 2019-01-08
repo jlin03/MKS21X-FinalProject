@@ -37,7 +37,11 @@ public class Environment {
 	while(!(game.isGameOver())) {
 		n = 1;
 		prevState1 = game.getState();
-		System.out.println(Arrays.deepToString(prevState1));
+		copy = new int[prevState1.length][prevState1.length];
+		for(int r = 0; r < prevState1.length; r++) {
+			copy[r] = Arrays.copyOf(prevState1[r],prevState1[r].length);
+		}
+		prevState1 = copy;
 		if(rand.nextInt() % 10 > 4) {
 			action1 = p1.getNthMaxWeight(prevState1,n);
 			while(!(game.isMoveValid(1,action1[0],action1[1]))) {
@@ -83,7 +87,11 @@ public class Environment {
 		
 		n = 1;
 		prevState2 = game.getState();
-		System.out.println(Arrays.deepToString(prevState1));
+		copy = new int[prevState2.length][prevState2.length];
+		for(int r = 0; r < prevState2.length; r++) {
+			copy[r] = Arrays.copyOf(prevState2[r],prevState2[r].length);
+		}
+		prevState1 = copy;
 		if(rand.nextInt() % 10 > 4) {
 			action2 = p2.getNthMaxWeight(prevState2,n);
 			while(!(game.isMoveValid(2,action2[0],action2[1]))) {
