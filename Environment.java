@@ -6,6 +6,7 @@ public class Environment {
   public AI p2;
   double learnRate = 0.7;
   double discount = -0.2;
+  Random rand = new Random(56143790);
   
   public Environment(int d) {
 	game = new Board(d);
@@ -31,12 +32,11 @@ public class Environment {
 	int[] nextAction2 = new int[2];
 	int[][] prevState2 = new int[3][3];
 	int[][] currState2 = new int[3][3];
-	Random rand = new Random(56137890);
 	while(!(game.isGameOver())) {
 		if(turn == 1) {
 			n = 1;
 			prevState1 = game.getState();
-			if(rand.nextInt() % 10 != 0) {
+			if(rand.nextInt() % 10 > 4) {
 				action1 = p1.getNthMaxWeight(prevState1,n);
 				while(!(game.isMoveValid(1,action1[0],action1[1]))) {
 					n++;
@@ -80,7 +80,7 @@ public class Environment {
 		else {
 			n = 1;
 			prevState2 = game.getState();
-			if(rand.nextInt() % 10 != 0) {
+			if(rand.nextInt() % 10 > 4) {
 				action2 = p2.getNthMaxWeight(prevState2,n);
 				while(!(game.isMoveValid(2,action2[0],action2[1]))) {
 					n++;
