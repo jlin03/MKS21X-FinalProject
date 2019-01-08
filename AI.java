@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class AI {
-	private ArrayList<int[][]> states;
-	private ArrayList<double[][]> weights;
+	public ArrayList<int[][]> states;
+	public ArrayList<double[][]> weights;
 	private double[][] empty;
 	Random rand =  new Random(51349);
 
@@ -27,11 +27,11 @@ public class AI {
 	}
 
 	private void addState(int[][] state) {
-		states.add(state);
+		states.add(state.clone());
 	}
 
 	private void addWeight(double[][] weight) {
-		weights.add(weight);
+		weights.add(weight.clone());
 	}
 
 	public int indexOfState(int[][] state) {
@@ -80,7 +80,13 @@ public class AI {
 
 	public int[] getNthMax(double[][] array, int n) {
 		double[] sorted = sortArray(array);
-		double nth = sorted[sorted.length-n];
+		double nth;
+		if (n > sorted.length) {
+			nth = sorted.length - 1;
+		}
+		else {
+			nth = sorted[sorted.length-n];
+		}
 		int[] max = {0,0};
 		for(int r = 0; r < array.length;r++) {
 			for(int c = 0; c < array[r].length;c++) {
@@ -163,6 +169,8 @@ public class AI {
 			temp = impW.nextLine();
 			addWeight(stringToDoubleArray(temp));
 		}
+		impS.close();
+		impW.close();
 	}
 
 	public void export(String fileS, String fileW) throws Exception {

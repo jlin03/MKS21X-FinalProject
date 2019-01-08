@@ -1,11 +1,17 @@
 import java.util.Arrays;
 import java.util.Random;
 public class Environment {
-  Board game;
-  AI p1;
-  AI p2;
+  public Board game;
+  public AI p1;
+  public AI p2;
   double learnRate = 0.7;
   double discount = -0.2;
+  
+  public Environment(int d) {
+	game = new Board(d);
+	p1 = new AI(d);
+    p2 = new AI(d);
+  }
 
   public Environment(int d, String fileS1, String fileW1, String fileS2, String fileW2) throws Exception {
     game = new Board(d);
