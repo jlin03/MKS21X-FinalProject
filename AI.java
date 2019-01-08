@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class AI {
-	public ArrayList<int[][]> states;
-	public ArrayList<double[][]> weights;
+	private ArrayList<int[][]> states;
+	private ArrayList<double[][]> weights;
 	private double[][] empty;
 	Random rand =  new Random(51349);
 
@@ -26,12 +26,20 @@ public class AI {
 		importF(fileS,fileW);
 	}
 
-	private void addState(int[][] state) {
-		states.add(state.clone());
+	public void addState(int[][] state) {
+		int[][] copy = new int[state.length][state.length];
+		for(int r = 0; r < state.length; r++) {
+			copy[r] = Arrays.copyOf(state[r],state[r].length);
+		}
+		states.add(copy);
 	}
 
-	private void addWeight(double[][] weight) {
-		weights.add(weight.clone());
+	public void addWeight(double[][] weight) {
+		double[][] copy = new double[weight.length][weight.length];
+		for(int r = 0; r < weight.length; r++) {
+			copy[r] = Arrays.copyOf(weight[r],weight[r].length);
+		}
+		weights.add(copy);
 	}
 
 	public int indexOfState(int[][] state) {
