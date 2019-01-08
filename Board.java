@@ -117,7 +117,7 @@ public class Board {
 	  return -1;
   }
 
-  public int getReward(int player) {
+  public double getReward(int player) {
 	  if(winner() == -1) {
 		  return 0;
 	  }
@@ -129,7 +129,7 @@ public class Board {
 			  return -1;
 		  }
 	  }
-	  return 0;
+	  return -0.5;
   }
 
   public int[][] getState() {
