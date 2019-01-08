@@ -8,17 +8,20 @@ public class Environment {
   double learnRate = 0.7;
   double discount = 0.2;
   Random rand = new Random((int)System.currentTimeMillis());
+  int dim;
 
   public Environment(int d) {
 	game = new Board(d);
 	p1 = new AI(d);
 	p2 = new AI(d);
+	dim = d;
   }
 
   public Environment(int d, String fileS1, String fileW1, String fileS2, String fileW2) throws Exception {
     game = new Board(d);
     p1 = new AI(d,fileS1,fileW1);
     p2 = new AI(d,fileS2,fileW2);
+	dim = d;
   }
 
   public void learn(boolean inspect) {
@@ -27,12 +30,12 @@ public class Environment {
 	int n = 1;
 	int[] action1 = new int[2];
 	int[] nextAction1 = new int[2];
-	int[][] prevState1 = new int[3][3];
-	int[][] currState1 = new int[3][3];
+	int[][] prevState1 = new int[dim][dim];
+	int[][] currState1 = new int[dim][dim];
 	int[] action2 = new int[2];
 	int[] nextAction2 = new int[2];
-	int[][] prevState2 = new int[3][3];
-	int[][] currState2 = new int[3][3];
+	int[][] prevState2 = new int[dim][dim];
+	int[][] currState2 = new int[dim][dim];
 	int[][] copy;
 	while(!(game.isGameOver())) {
 		n = 1;
@@ -42,7 +45,7 @@ public class Environment {
 			copy[r] = Arrays.copyOf(prevState1[r],prevState1[r].length);
 		}
 		prevState1 = copy;
-		if(rand.nextInt() % 10 > 4) {
+		if(rand.nextInt() % 10 > 2) {
 			action1 = p1.getNthMaxWeight(prevState1,n);
 			while(!(game.isMoveValid(1,action1[0],action1[1]))) {
 				p1.changeWeight(prevState1,action1,-1);
@@ -50,11 +53,11 @@ public class Environment {
 			}
 		}
 		else {
-			action1[0] = rand.nextInt() % 3;
-			action1[1] = rand.nextInt() % 3;
+			action1[0] = rand.nextInt() % dim;
+			action1[1] = rand.nextInt() % dim;
 			while(!(game.isMoveValid(1,action1[0],action1[1]))) {
-				action1[0] = rand.nextInt() % 3;
-				action1[1] = rand.nextInt() % 3;
+				action1[0] = rand.nextInt() % dim;
+				action1[1] = rand.nextInt() % dim;
 			}
 		}
 		game.move(1,action1[0],action1[1]);
@@ -92,7 +95,7 @@ public class Environment {
 			copy[r] = Arrays.copyOf(prevState2[r],prevState2[r].length);
 		}
 		prevState1 = copy;
-		if(rand.nextInt() % 10 > 4) {
+		if(rand.nextInt() % 10 > 2) {
 			action2 = p2.getNthMaxWeight(prevState2,n);
 			while(!(game.isMoveValid(2,action2[0],action2[1]))) {
 				p2.changeWeight(prevState2,action2,-1);
@@ -100,11 +103,11 @@ public class Environment {
 			}
 		}
 		else {
-			action2[0] = rand.nextInt() % 3;
-			action2[1] = rand.nextInt() % 3;
+			action2[0] = rand.nextInt() % dim;
+			action2[1] = rand.nextInt() % dim;
 			while(!(game.isMoveValid(2,action2[0],action2[1]))) {
-				action2[0] = rand.nextInt() % 3;
-				action2[1] = rand.nextInt() % 3;
+				action2[0] = rand.nextInt() % dim;
+				action2[1] = rand.nextInt() % dim;
 			}
 		}
 		game.move(2,action2[0],action2[1]);
