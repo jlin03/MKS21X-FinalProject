@@ -6,8 +6,8 @@ public class Environment {
   public AI p1;
   public AI p2;
   double learnRate = 0.7;
-  double discount = -0.2;
-  Random rand = new Random(56143790);
+  double discount = 0.2;
+  Random rand = new Random((int)System.currentTimeMillis());
 
   public Environment(int d) {
 	game = new Board(d);
@@ -36,10 +36,10 @@ public class Environment {
 	while(!(game.isGameOver())) {
 		n = 1;
 		prevState1 = game.getState();
-		if(rand.nextInt() % 10 > 2) {
+		if(rand.nextInt() % 10 > 4) {
 			action1 = p1.getNthMaxWeight(prevState1,n);
 			while(!(game.isMoveValid(1,action1[0],action1[1]))) {
-				n++;
+				p1.changeWeight(prevState1,action1,-1);
 				action1 = p1.getNthMaxWeight(prevState1,n);
 			}
 		}
@@ -70,7 +70,7 @@ public class Environment {
 			currState2 = game.getState();
 			nextAction2 = p2.getNthMaxWeight(currState2,n);
 			while(!(game.isMoveValid(2,nextAction2[0],nextAction2[1]))) {
-				n++;
+				p2.changeWeight(currState2,nextAction2,-1);
 				nextAction2 = p2.getNthMaxWeight(currState2,n);
 			}
 			p2.changeWeight(prevState2,action2,p2.getWeight(prevState2,action2) + (learnRate * (game.getReward(2) + (discount * p2.getWeight(currState2,nextAction2)) - p2.getWeight(prevState2,action2))));
@@ -79,10 +79,10 @@ public class Environment {
 		
 		n = 1;
 		prevState2 = game.getState();
-		if(rand.nextInt() % 10 > 2) {
+		if(rand.nextInt() % 10 > 4) {
 			action2 = p2.getNthMaxWeight(prevState2,n);
 			while(!(game.isMoveValid(2,action2[0],action2[1]))) {
-				n++;
+				p2.changeWeight(prevState2,action2,-1);
 				action2 = p2.getNthMaxWeight(prevState2,n);
 			}
 		}
@@ -113,7 +113,7 @@ public class Environment {
 			currState1 = game.getState();
 			nextAction1 = p1.getNthMaxWeight(currState1,n);
 			while(!(game.isMoveValid(1,nextAction1[0],nextAction1[1]))) {
-				n++;
+				p1.changeWeight(currState1,nextAction1,-1);
 				nextAction1 = p1.getNthMaxWeight(currState1,n);
 			}
 			p1.changeWeight(prevState1,action1,p1.getWeight(prevState1,action1) + (learnRate * (game.getReward(1) + (discount * p1.getWeight(currState1,nextAction1)) - p1.getWeight(prevState1,action1))));
@@ -175,6 +175,7 @@ public class Environment {
         game.move(bot,botAction[0],botAction[1]);
         System.out.println(game);
         System.out.println(Arrays.deepToString(opponent.getWeights(prevState)));
+		System.out.println(game.gameMessage());
 
         turn = player;
 
