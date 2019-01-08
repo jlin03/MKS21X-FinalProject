@@ -85,14 +85,13 @@ public class AI {
 		for(int x = 0; x < n;x++) {
 			for(int r = 0; r < array.length;r++) {
 				for(int c = 0; c < array[r].length;c++) {
-					if((array[r][c] > array[tempMax[0]][tempMax[1]] && array[r][c] < maxVal) || (array[r][c] == maxVal && (r != max[0] || c != max[1]))) {
+					if(Double.compare(array[r][c], array[tempMax[0]][tempMax[1]]) > 0 && Double.compare(array[r][c], maxVal) < 0) {
 						tempMax[0] = r;
 						tempMax[1] = c;
 					}
 				}
 			}
 			maxVal = array[tempMax[0]][tempMax[1]];
-			max = Arrays.copyOf(tempMax,2);
 			if(x != n-1) {
 				tempMax[0] = 0;
 				tempMax[1] = 0;
@@ -100,6 +99,20 @@ public class AI {
 		}
 		max = tempMax;
 		return max;
+	}
+	
+	public double[] sortArray(double[][] array) {
+		double[] newArray = new double[array.length*array.length];
+		int n = 0;
+		for(int r = 0; r < array.length;r++) {
+			for(int c = 0; c < array[r].length;c++) {
+				newArray[n] = array[r][c];
+				n++;
+			}
+		}
+		Arrays.sort(newArray);
+		return newArray;
+		
 	}
 	
 	public double[][] scrambledWeights() {
