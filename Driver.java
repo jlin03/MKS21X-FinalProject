@@ -4,9 +4,10 @@ import java.io.FileNotFoundException;
 public class Driver {
   public static void main(String[] args) {
 	Environment training;
+	Scanner input = new Scanner(System.in);
 	try {
     if(args.length > 1) {
-        if(Integer.isIntInteger(Integer.parseInt(args[0])) && Integer.parseInt(args[0]) > 1) {
+        if(Integer.parseInt(args[0]) > 1) {
           if(args.length >= 6) {
             training = new Environment(Integer.parseInt(args[0]),args[2],args[3],args[4],args[5]);
           }
@@ -19,15 +20,49 @@ public class Driver {
         }
 
         if(args[1].equals("play")) {
-          Scanner player = new Scanner(System.in);
-          int player = move.next();
-          if(player == 1 || player == 2) {
-            training.play(player);
+		  System.out.println("Start as player 1 or 2?:");
+          int p = input.nextInt();
+          if(p == 1 || p == 2) {
+            training.play(p);
           }
           else {
             throw new NumberFormatException();
           }
         }
+		
+		if(args[1].equals("train")) {
+			boolean inspect = false;
+			System.out.println("How many games should be played? ");
+			int n = input.nextInt();
+			System.out.println("Should the games be printed?[y/n] ");
+			String yn = input.next();
+			if(yn.equals("y")) {
+				inspect = true;
+			}
+			else {
+				if(!(yn.equals("n"))) {
+					throw new Exception();
+				}
+			}
+				
+			for(int i = 0; i < n; i++) {
+				training.learn(inspect);
+			}
+			
+			if(args.length >= 6) {
+				training.p1.export(args[2],args[3]);
+				training.p2.export(args[4],args[5]);
+			}
+			else {
+				training.p1.export("p1States.txt","p1Weights.txt");
+				training.p2.export("p2States.txt","p2Weights.txt");
+			}
+		}
+		
+		if(!(args[1].equals("train")) && !(args[1].equals("play"))) {
+			throw new Exception();
+		}
+		
     }
     else {
       throw new Exception();
