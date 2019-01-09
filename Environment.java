@@ -173,7 +173,7 @@ public class Environment {
       }
       else {
         n = 1;
-        int[][] prevState = game.getState();
+        int[][] prevState = copy(game.getState());
         int[] botAction = opponent.getNthMaxWeight(prevState,n);
         while(!(game.isMoveValid(bot,botAction[0],botAction[1]))) {
           n++;
