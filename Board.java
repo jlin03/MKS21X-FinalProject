@@ -170,7 +170,11 @@ public class Board {
 		  out += "|";
 		}
 		out += convert(state[r][state[r].length-1]);
-		out += "\n- - -\n";
+    out += "\n";
+    for(int i = 0;i < state.length;i++) {
+		  out += "- ";
+    }
+    out += "\n";
 	}
 	for(int c = 0; c < state[state.length-1].length - 1;c++) {
 		out += convert(state[state.length-1][c]);
