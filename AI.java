@@ -134,7 +134,7 @@ public class AI {
 
 	public void printWeights(double[][] weight) {
 		for(int i = 0; i < weight.length;i++) {
-			System.out.println(weight[i]);
+			System.out.println(Arrays.toString(weight[i]));
 		}
 	}
 
