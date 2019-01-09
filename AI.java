@@ -61,7 +61,7 @@ public class AI {
 			changeWeight(state,weight,val);
 		}
 	}
-	
+
 	public double getWeight(int[][] state, int[] weight) {
 		if(indexOfState(state) == -1) {
 			addState(state);
@@ -77,7 +77,7 @@ public class AI {
 		}
 		return weights.get(indexOfState(state));
 	}
-	
+
 	public int[] getNthMaxWeight(int[][] state, int n) {
 		if(indexOfState(state) == -1) {
 			addState(state);
@@ -107,7 +107,7 @@ public class AI {
 		}
 		return max;
 	}
-	
+
 	public double[] sortArray(double[][] array) {
 		double[] newArray = new double[array.length*array.length];
 		int n = 0;
@@ -119,9 +119,9 @@ public class AI {
 		}
 		Arrays.sort(newArray);
 		return newArray;
-		
+
 	}
-	
+
 	public double[][] scrambledWeights() {
 		double[][] output = new double[empty.length][empty.length];
 		for(int r = 0; r < output.length;r++) {
@@ -130,6 +130,12 @@ public class AI {
 			}
 		}
 		return output;
+	}
+
+	public void printWeights(double[][] weight) {
+		for(int i = 0; i < weight.length;i++) {
+			System.out.println(weight[i]);
+		}
 	}
 
 	public double[][] stringToDoubleArray(String array) {
@@ -146,7 +152,7 @@ public class AI {
 		}
 		return output;
 	}
-	
+
 	public int[][] stringToIntArray(String array) {
 		String[] split1 = array.split(";");
 		String[][] split2 = new String[split1.length][split1.length];
