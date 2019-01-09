@@ -45,16 +45,16 @@ public class Environment {
 			p1.changeWeight(prevState1,action1,-1);
 			action1 = p1.getNthMaxWeight(prevState1,n);
 		}
-		
+
 		game.move(1,action1[0],action1[1]);
 
 		if(inspect) {
 			System.out.println(game);
-			System.out.println(Arrays.deepToString(p1.getWeights(prevState1)));
+			p1.printWeights(p1.getWeights(prevState1));
 			System.out.println(game.gameMessage());
 		}
 
-		
+
 		if(game.isGameOver()) {
 			p1.changeWeight(prevState1,action1,p1.getWeight(prevState1,action1) + (learnRate * (game.getReward(1) - p1.getWeight(prevState1,action1))));
 			p2.changeWeight(prevState2,action2,p2.getWeight(prevState2,action2) + (learnRate * (game.getReward(2) - p2.getWeight(prevState2,action2))));
@@ -81,8 +81,8 @@ public class Environment {
 			}
 			p2.changeWeight(prevState2,action2,p2.getWeight(prevState2,action2) + (learnRate * (game.getReward(2) + (discount * p2.getWeight(currState2,p2.getNthMaxWeight(currState2,n))) - p2.getWeight(prevState2,action2))));
 		}
-	
-		
+
+
 		n = 1;
 		prevState2 = copy(game.getState());
 		action2 = Arrays.copyOf(nextAction2,2);
@@ -95,11 +95,11 @@ public class Environment {
 
 		if(inspect) {
 			System.out.println(game);
-			System.out.println(Arrays.deepToString(p2.getWeights(prevState2)));
+			p2.printWeights(p2.getWeights(prevState2));
 			System.out.println(game.gameMessage());
 		}
-		
-		
+
+
 		if(game.isGameOver()) {
 			p1.changeWeight(prevState1,action1,p1.getWeight(prevState1,action1) + (learnRate * (game.getReward(1) - p1.getWeight(prevState1,action1))));
 			p2.changeWeight(prevState2,action2,p2.getWeight(prevState2,action2) + (learnRate * (game.getReward(2) - p2.getWeight(prevState2,action2))));
@@ -127,7 +127,7 @@ public class Environment {
 			p1.changeWeight(prevState1,action1,p1.getWeight(prevState1,action1) + (learnRate * (game.getReward(1) + (discount * p1.getWeight(currState1,p1.getNthMaxWeight(currState1,n))) - p1.getWeight(prevState1,action1))));
 		}
 	}
-		
+
   }
 
   public void play(int player) {
@@ -182,7 +182,7 @@ public class Environment {
 
         game.move(bot,botAction[0],botAction[1]);
         System.out.println(game);
-        System.out.println(Arrays.deepToString(opponent.getWeights(prevState)));
+        opponent.printWeights(opponent.getWeights(prevState));
 		System.out.println(game.gameMessage());
 
         turn = player;
@@ -191,7 +191,7 @@ public class Environment {
 
     }
   }
-  
+
   public int[][] copy(int[][] input) {
 	int[][] copy = new int[input.length][input.length];
 	for(int r = 0; r < input.length; r++) {
