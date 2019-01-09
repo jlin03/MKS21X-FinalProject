@@ -25,9 +25,9 @@ public class Board {
     }
 	return false;
   }
-  
+
   public boolean isMoveValid(int player, int posr, int posc) {
-	  if((player == 1 || player == 2) && posr >= 0 && posr < 3  && posc >= 0 && posc < 3) {
+	  if((player == 1 || player == 2) && posr >= 0 && posr < state.length  && posc >= 0 && posc < state.length) {
 		if(state[posr][posc] == 0) {
 		  return true;
 		}
@@ -94,7 +94,7 @@ public class Board {
 	}
 	equal = true;
     for(int r = 0;r < state.length;r++) {
-      if(state[0][2] != state[r][2-r] || state[r][2-r] == 0) {
+      if(state[0][state.length-1] != state[r][state.length-1-r] || state[r][state.length-1-r] == 0) {
         equal = false;
       }
     }
