@@ -35,4 +35,5 @@ Development:
 1-8-19:
   play method to start a player vs computer match written
   learning algorithm changed so weights update every two moves, due to the two player nature of tic-tac-toe
+  AI is almost unbeatable on 3x3 board
   
