@@ -31,6 +31,9 @@ public class Driver {
         }
 		
 		if(args[1].equals("train")) {
+			int win1 = 0;
+			int win2 = 0;
+			int draw = 0;
 			boolean inspect = false;
 			System.out.println("How many games should be played? ");
 			int n = input.nextInt();
@@ -47,7 +50,17 @@ public class Driver {
 				
 			for(int i = 0; i < n; i++) {
 				training.learn(inspect);
+				if(training.game.winner() == 1) {
+					win1++;
+				}
+				if(training.game.winner() == 2) {
+					win2++;
+				}
+				if(training.game.winner() == -1) {
+					draw++;
+				}
 			}
+			System.out.println("Summary:\nPlayer 1 win count: " + win1 + "\nPlayer 2 win count: " + win2+ "\nDraw count: " + draw);
 			
 			if(args.length >= 6) {
 				training.p1.export(args[2],args[3]);
