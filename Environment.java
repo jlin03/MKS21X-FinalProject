@@ -145,6 +145,8 @@ public class Environment {
       opponent = p1;
     }
 
+    System.out.println(game);
+
     Scanner move = new Scanner(System.in);
     while(!(game.isGameOver())) {
       if(turn == player) {
