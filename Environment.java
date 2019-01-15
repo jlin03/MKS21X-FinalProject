@@ -2,65 +2,65 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 public class Environment {
-  public Board game;
-  public AI p1;
-  public AI p2;
-  double learnRate = 0.7;
-  double discount = 0.6;
-  Random rand = new Random((int)System.currentTimeMillis());
+  public Board game;    //tic tac toe board
+  public AI p1;         //player1(X)
+  public AI p2;         //player2(O)
+  double learnRate = 0.7;   //constant used for q-learning algorithm
+  double discount = 0.6;    //constant used for q-learning algorithm
+  Random rand = new Random((int)System.currentTimeMillis());    //randomizer for exploratory moves
   int dim;
 
-  public Environment(int d) {
+  public Environment(int d) {   //initializes the environment with no data
 	game = new Board(d);
 	p1 = new AI(d);
 	p2 = new AI(d);
 	dim = d;
   }
 
-  public Environment(int d, String fileS1, String fileW1, String fileS2, String fileW2) throws Exception {
+  public Environment(int d, String fileS1, String fileW1, String fileS2, String fileW2) throws Exception {    //initializes environment with file data
     game = new Board(d);
     p1 = new AI(d,fileS1,fileW1);
     p2 = new AI(d,fileS2,fileW2);
 	dim = d;
   }
 
-  public void learn(boolean inspect) {
+  public void learn(boolean inspect) {    //inspect boolean prints the game as it is played if set true
 	game.clear();
 	int turn = 1;
 	int n = 1;
-	int[] action1 = new int[2];
-	int[] nextAction1 = new int[2];
-	int[][] prevState1 = new int[dim][dim];
-	int[][] currState1 = new int[dim][dim];
+	int[] action1 = new int[2];              //current action(move) for player1
+	int[] nextAction1 = new int[2];          //future action(move) for player1
+	int[][] prevState1 = new int[dim][dim];  //state of the board before current action1
+	int[][] currState1 = new int[dim][dim];  //state of the board after current action1
 	int[] action2 = new int[2];
 	int[] nextAction2 = new int[2];
 	int[][] prevState2 = new int[dim][dim];
 	int[][] currState2 = new int[dim][dim];
-	nextAction1 = p1.getNthMaxWeight(prevState1,n);
-	while(!(game.isGameOver())) {
+	nextAction1 = p1.getNthMaxWeight(prevState1,n);  //next action is set to the maximum weight value's index as default
+	while(!(game.isGameOver())) {    //if the game is still ongoing
 		n = 1;
-		prevState1 = copy(game.getState());
-		action1 = Arrays.copyOf(nextAction1,2);
-		while(!(game.isMoveValid(1,action1[0],action1[1]))) {
+		prevState1 = copy(game.getState());   //copy the prevState
+		action1 = Arrays.copyOf(nextAction1,2);   //make the current action the nextAction
+		while(!(game.isMoveValid(1,action1[0],action1[1]))) {   //if the move is not valid, make the weight at that index -1, and search for next max
 			p1.changeWeight(prevState1,action1,-1);
 			action1 = p1.getNthMaxWeight(prevState1,n);
 		}
 
-		game.move(1,action1[0],action1[1]);
+		game.move(1,action1[0],action1[1]);   //make the move on the board for player 1
 
-		if(inspect) {
+		if(inspect) {   //prints the game if inspect is true
 			System.out.println(game);
 			p1.printWeights(p1.getWeights(prevState1));
 			System.out.println(game.gameMessage());
 		}
 
 
-		if(game.isGameOver()) {
+		if(game.isGameOver()) {   //if the game is over, update both players' weights
 			p1.changeWeight(prevState1,action1,p1.getWeight(prevState1,action1) + (learnRate * (game.getReward(1) - p1.getWeight(prevState1,action1))));
 			p2.changeWeight(prevState2,action2,p2.getWeight(prevState2,action2) + (learnRate * (game.getReward(2) - p2.getWeight(prevState2,action2))));
 			break;
 		}
-		else {
+		else {    //else choose the nextAction (20% exploratory 80% optimal), then update the weights for player 2
 			n = 1;
 			currState2 = copy(game.getState());
 			if(Math.abs(rand.nextInt() % 10) > 1) {
@@ -83,7 +83,7 @@ public class Environment {
 		}
 
 
-		n = 1;
+		n = 1;      //exact same code as the last block, but with player1 and player2 switched
 		prevState2 = copy(game.getState());
 		action2 = Arrays.copyOf(nextAction2,2);
 		while(!(game.isMoveValid(2,action2[0],action2[1]))) {
@@ -130,7 +130,7 @@ public class Environment {
 
   }
 
-  public void play(int player) {
+  public void play(int player) {    //starts a game as a certain player(user vs AI)
     game.clear();
     int turn = 1;
     int bot = 0;
@@ -148,8 +148,8 @@ public class Environment {
     System.out.println(game);
 
     Scanner move = new Scanner(System.in);
-    while(!(game.isGameOver())) {
-      if(turn == player) {
+    while(!(game.isGameOver())) {   //if the game is ongoing
+      if(turn == player) {    //if it is your turn, user is prompted to make a move, which is put on the board unless the input is invalid
         System.out.print("Make your move:");
         String pAction = move.next();
         String[] strAction = pAction.replaceAll("\\s", "").split(",");
@@ -173,7 +173,7 @@ public class Environment {
         turn = bot;
 
       }
-      else {
+      else {    //the AI chooses the optimal move 100% of the time and puts it on the board
         n = 1;
         int[][] prevState = copy(game.getState());
         int[] botAction = opponent.getNthMaxWeight(prevState,n);
@@ -194,7 +194,7 @@ public class Environment {
     }
   }
 
-  public int[][] copy(int[][] input) {
+  public int[][] copy(int[][] input) {    //copies an int[][] array to store as data and dissociate from reference
 	int[][] copy = new int[input.length][input.length];
 	for(int r = 0; r < input.length; r++) {
 		copy[r] = Arrays.copyOf(input[r],input[r].length);
