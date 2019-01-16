@@ -115,7 +115,7 @@ public class Environment {
 		else {
 			n = 1;
 			currState1 = copy(game.getState());
-			if(rand.nextInt() % 10 > r) {
+			if(Math.abs(rand.nextInt() % 10) >= r) {
 				nextAction1 = p1.getNthMaxWeight(currState1,n);
 				while(!(game.isMoveValid(1,nextAction1[0],nextAction1[1]))) {
 					p1.changeWeight(currState1,nextAction1,-1);
