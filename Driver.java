@@ -52,7 +52,7 @@ public class Driver {
       System.out.println("Should the bots make random moves?[y/n] ");
 			String rnd = input.next();
 			System.out.println("How many games should be played? ");
-			int n = input.nextInt();
+			int n = Math.abs(input.nextInt());
 			System.out.println("Should the games be printed?[y/n] ");
 			String yn = input.next();
 			if(yn.equals("y")) {
