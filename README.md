@@ -91,7 +91,6 @@ This is a training/playing tool that trains the computer to play tic-tac-toe by 
 			Draw rate - 98%
 			
 			
-			
 Development:
 1-3-19:
   Initialized repo
@@ -127,4 +126,6 @@ Development:
 1-9-19:
   Driver is complete, instructions/documentation coming soon
   summary is now included after training sessions
-  
+1-16-19:
+  Instructions documented
+  Data collected for 3x3 board
