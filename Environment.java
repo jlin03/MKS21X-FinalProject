@@ -24,8 +24,15 @@ public class Environment {
 	dim = d;
   }
 
-  public void learn(boolean inspect) {    //inspect boolean prints the game as it is played if set true
+  public void learn(boolean inspect, boolean explore) {    //inspect boolean prints the game as it is played if set true, if explore is true, bots may make random moves.
 	game.clear();
+  int r;
+  if(explore) {
+    r = 2;
+  }
+  else {
+    r = 0;
+  }
 	int turn = 1;
 	int n = 1;
 	int[] action1 = new int[2];              //current action(move) for player1
@@ -63,7 +70,7 @@ public class Environment {
 		else {    //else choose the nextAction (20% exploratory 80% optimal), then update the weights for player 2
 			n = 1;
 			currState2 = copy(game.getState());
-			if(Math.abs(rand.nextInt() % 10) > 1) {
+			if(Math.abs(rand.nextInt() % 10) >= r) {
 				nextAction2 = p2.getNthMaxWeight(currState2,n);
 				while(!(game.isMoveValid(2,nextAction2[0],nextAction2[1]))) {
 					p2.changeWeight(currState2,nextAction2,-1);
@@ -108,7 +115,7 @@ public class Environment {
 		else {
 			n = 1;
 			currState1 = copy(game.getState());
-			if(rand.nextInt() % 10 > 1) {
+			if(rand.nextInt() % 10 > r) {
 				nextAction1 = p1.getNthMaxWeight(currState1,n);
 				while(!(game.isMoveValid(1,nextAction1[0],nextAction1[1]))) {
 					p1.changeWeight(currState1,nextAction1,-1);
