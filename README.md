@@ -45,7 +45,7 @@ This is a training/playing tool that trains the computer to play tic-tac-toe by 
 			
 			Prompt 3 will appear after the game. If the response to prompt 3 is "y", another game will be played. If "n", then the program will terminate.
 			
-	Data Collection:
+   Data Collection:
 	
 		The win/draw rates of each player under their "optimal" policies were recorded in intervals of 2,500 games.
 		On a 3x3 Board:
