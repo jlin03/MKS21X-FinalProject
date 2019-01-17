@@ -129,7 +129,7 @@ public class Board {
 			  return -1;
 		  }
 	  }
-	  return -0.5;
+	  return 0;
   }
 
   public int[][] getState() {   //returns the state array
