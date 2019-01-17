@@ -92,6 +92,19 @@ This is a training/playing tool that trains the computer to play tic-tac-toe by 
 			
 			**This data is not accurate since the reward for drawing was changed from -0.5 to 0. The algorithm should converge at around half the amount of games now.
 			
+		On a 4x4 Board(with draw reward modification):
+		
+			After 10,000 games(took my computer 10 mins):
+			P1 winrate - 40%
+			P2 winrate - 22%
+			Draw rate - 38%
+			
+			After 20,000 games(took my computer 1 hour):
+			P1 winrate - 35%
+			P2 winrate - 26%
+			Draw rate - 39%
+			
+			
 			
 Development:
 1-3-19:
