@@ -104,6 +104,8 @@ This is a training/playing tool that trains the computer to play tic-tac-toe by 
 			P2 winrate - 26%
 			Draw rate - 39%
 			
+			**From the current data, it seems like the algorithm will converge even on a different size board. Due to a lack of processing power, however, more data cannot be accumulated in a reasonable amount of time.
+			
 			
 			
 Development:
